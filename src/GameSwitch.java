@@ -1,35 +1,43 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
 public class GameSwitch {
     private JPanel GamePanel;
     private JButton newGameButton;
     private JButton exitGameButton;
+    private JButton button2;
     private JButton button3;
+    private JButton button1;
     private JButton button4;
     private JButton button5;
+    private JButton button9;
+    private JButton button13;
     private JButton button6;
     private JButton button7;
     private JButton button8;
-    private JButton button9;
-    private JButton button10;
-    private JButton button11;
     private JButton button12;
-    private JButton button13;
-    private JButton button14;
-    private JButton button15;
+    private JButton button11;
+    private JButton button10;
     private JButton button16;
-    private JButton button17;
-    private JButton button18;
+    private JButton button15;
+    private JButton button14;
     private State state = State.NEW;
     private boolean[][] field  = new boolean[4][4];
 
     public GameSwitch() {
-        button5.addActionListener(new ActionListener() {
+        button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                processClick(5);
+                processClick(1);
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                processClick(2);
             }
         });
         button3.addActionListener(new ActionListener() {
@@ -38,14 +46,20 @@ public class GameSwitch {
                 processClick(3);
             }
         });
-        button4.addActionListener(new ActionListener() {
+        button4.addActionListener(new ActionListener()
+        {
             @Override
             public void actionPerformed(ActionEvent e) {
                 processClick(4);
             }
         });
-        button6.addActionListener(new ActionListener()
-        {
+        button5.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                processClick(5);
+            }
+        });
+        button6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 processClick(6);
@@ -55,6 +69,18 @@ public class GameSwitch {
             @Override
             public void actionPerformed(ActionEvent e) {
                 processClick(7);
+            }
+        });
+        button8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                processClick(8);
+            }
+        });
+        button9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                processClick(9);
             }
         });
         button10.addActionListener(new ActionListener() {
@@ -75,16 +101,10 @@ public class GameSwitch {
                 processClick(12);
             }
         });
-        button8.addActionListener(new ActionListener() {
+        button13.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                processClick(8);
-            }
-        });
-        button15.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                processClick(15);
+                processClick(13);
             }
         });
         button14.addActionListener(new ActionListener() {
@@ -93,28 +113,10 @@ public class GameSwitch {
                 processClick(14);
             }
         });
-        button13.addActionListener(new ActionListener() {
+        button15.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                processClick(13);
-            }
-        });
-        button9.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                processClick(9);
-            }
-        });
-        button18.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                processClick(18);
-            }
-        });
-        button17.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                processClick(17);
+                processClick(15);
             }
         });
         button16.addActionListener(new ActionListener() {
@@ -142,17 +144,73 @@ public class GameSwitch {
         });
     }
 
-    private void processClick(int i){
-        if (state == State.PLAYING)
-        System.out.println("You clicked on button " +i);
+    private void processClick(int i) {
+        try {
+            if (state == State.PLAYING) {
+                System.out.println("You clicked on button " + i);
+                switch (i){
+                    case 1: toogle(2);toogle(5);toogle(6);
+                    break;
+                    case 2: toogle(1); toogle(3); toogle(5); toogle(6); toogle(7);
+                    break;
+                    case 3: toogle(2); toogle(4); toogle(6); toogle(7);
+                    break;
+                    case 4: toogle(3); toogle(7); toogle(5);
+                    break;
+
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void toggle(int i){
+    public void toogle(int i) throws Exception {
         int col = (i-1)%4;
-        int row =  (i-1)/4;
-        field [row][col] = !field[row][col];
-        if (field[row][col] == false){
+        int row = (i-1)/4;
+        BufferedImage img;
+        field[row][col]=!field[row][col];
 
+        if(field[row][col] == false) {
+            img=ImageIO.read
+                    (getClass().getResource("o.png"));
+        }
+        else {
+            img=ImageIO.read(getClass().getResource("x.png"));
+        }
+
+        switch (i){
+            case 1: button1.setIcon(new ImageIcon(img));
+                break;
+            case 2: button2.setIcon(new ImageIcon(img));
+                break;
+            case 3: button1.setIcon(new ImageIcon(img));
+                break;
+            case 4: button2.setIcon(new ImageIcon(img));
+                break;
+            case 5: button1.setIcon(new ImageIcon(img));
+                break;
+            case 6: button2.setIcon(new ImageIcon(img));
+                break;
+            case 7: button2.setIcon(new ImageIcon(img));
+                break;
+            case 9: button2.setIcon(new ImageIcon(img));
+                break;
+            case 10: button2.setIcon(new ImageIcon(img));
+                break;
+            case 11: button2.setIcon(new ImageIcon(img));
+                break;
+            case 12: button2.setIcon(new ImageIcon(img));
+                break;
+            case 13: button2.setIcon(new ImageIcon(img));
+                break;
+            case 14: button2.setIcon(new ImageIcon(img));
+                break;
+            case 15: button2.setIcon(new ImageIcon(img));
+                break;
+            case 16: button2.setIcon(new ImageIcon(img));
+                break;
         }
     }
 
