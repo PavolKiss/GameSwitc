@@ -1,3 +1,6 @@
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -128,6 +131,7 @@ public class GameSwitch {
         exitGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Platform.exit();
                 System.exit(0);
             }
         });
@@ -157,7 +161,30 @@ public class GameSwitch {
                     break;
                     case 4: toogle(3); toogle(7); toogle(5);
                     break;
-
+                    case 5: toogle(1); toogle(2); toogle(6); toogle(9); toogle(10);
+                    break;
+                    case 6: toogle(1); toogle(2); toogle(3); toogle(3); toogle(5); toogle(7); toogle(9); toogle(10); toogle(11);
+                    break;
+                    case 7: toogle(2); toogle(3); toogle(4); toogle(6); toogle(8); toogle(10); toogle(11); toogle(12);
+                    break;
+                    case 8: toogle(3); toogle(4); toogle(7); toogle(11); toogle(12);
+                    break;
+                    case 9: toogle(5); toogle(6); toogle(10); toogle(13); toogle(14);
+                    break;
+                    case 10: toogle(5); toogle(6); toogle(7); toogle(9); toogle(11); toogle(13); toogle(14); toogle(15);
+                    break;
+                    case 11: toogle(6); toogle(7); toogle(8); toogle(10); toogle(12); toogle(14); toogle(15); toogle(16);
+                    break;
+                    case 12: toogle(7); toogle(8); toogle(11); toogle(15); toogle(16);
+                    break;
+                    case 13: toogle(9); toogle(10); toogle(14);
+                    break;
+                    case 14: toogle(9); toogle(10); toogle(11); toogle(13); toogle(15);
+                    break;
+                    case 15: toogle(10); toogle(11); toogle(12); toogle(14); toogle(16);
+                    break;
+                    case 16: toogle(11); toogle(12); toogle(15);
+                    break;
                 }
             }
 
@@ -212,6 +239,25 @@ public class GameSwitch {
             case 16: button2.setIcon(new ImageIcon(img));
                 break;
         }
+        if (GameWin() && state=State.PLAYING){
+            state=State.END;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Winner");
+            alert.setContentText("You win !");
+            alert.showAndWait();
+        }
+    }
+
+    private boolean GameWin(){
+        int i, j, k = 0;
+        for (i=0;i<4;i++)
+            for (j=0;j<4;j++)
+                if (field[i][j])
+                    k++;
+        if (k==16 || k==0)
+            return true;
+        else
+            return false;
     }
 
     public JPanel getGamePanel() {
